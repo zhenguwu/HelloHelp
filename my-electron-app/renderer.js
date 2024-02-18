@@ -1,11 +1,12 @@
 const { ipcRenderer } = require('electron');
+const { spawn } = require('child_process');
 
 function sendMessage() {
     const query = document.getElementById('query').value.trim();
     if (query) {
         addToChatLog('User', query);
         // Here you would typically send the query to the ChatGPT API and get a response
-        const simulatedResponse = `Simulated response for "${query}"`;
+        const simulatedResponse = `To log in to your Charles Schwab account and check your checking account, please follow these instructions: `;
         addToChatLog('ChatGPT', simulatedResponse);
     }
     document.getElementById('query').value = ''; // Clear the input area
@@ -29,6 +30,7 @@ function addToChatLog(sender, message) {
 
 let currentSteps = [];
 let currentStepIndex = 0;
+let flag = 1;
 
 document.getElementById('send').addEventListener('click', function() {
     // displayNextStep();
@@ -48,8 +50,13 @@ document.getElementById('nextStep').addEventListener('click', function() {
 
 function sendMessageToChatGPT(query) {
     // Simulated API response for demonstration purposes
-    const simulatedAPIResponse = "Step 1: Do something.\nStep 2: Do something else.\nStep 3: Finish up.";
-    currentSteps = simulatedAPIResponse.split('\n');
+    let py = spawn('python', ['./hello.py', flag, query])
+    py.stdout.on('data', data => console.log('data : ', data.toString()))
+    py.on('close', ()=>{
+      
+    })
+    // const simulatedAPIResponse = "Locate the Login Area: On your screen, in the upper right corner, you will see two fields side by side. The field on the left is for your 'Login ID' and the one on the right is for your 'Password'.\nStep 2: Do something else.\nStep 3: Finish up.";
+    currentSteps = ["Locate the Login Area: On your screen, in the upper right corner, you will see two fields side by side. The field on the left is for your 'Login ID' and the one on the right is for your 'Password'.", "Enter Login ID: Click on the Login ID box, then type in your unique Login ID that was created when you set up your account.", "Enter Password: Then, move to the next field to the right labeled 'Password'. Click on it and type in your password. Make sure to type it correctly as passwords are case sensitive.", "Log In: After entering your Login ID and Password, click on the blue 'Log in' button just to the right of the password field."];
 
     if (currentSteps.length > 0) {
       sendMessage();
@@ -77,6 +84,7 @@ function displayNextStep() {
       document.getElementById('query').value = '';
       document.getElementById('query').focus(); // Focus back to input area for next message
       currentStepIndex = 0;
+      flag = 2;
     }
 }
 
