@@ -1,0 +1,167 @@
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+#chatLog {
+    flex-grow: 1;
+    background-color: white;
+    border-radius: 8px;
+    overflow-y: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.message {
+    max-width: 60%;
+    color: white;
+    padding: 10px;
+    border-radius: 20px;
+    margin-bottom: 2px;
+    line-height: 20px;
+    word-wrap: break-word;
+}
+
+.user {
+    align-self: flex-end;
+    background-color: #007aff;
+}
+
+.chatgpt {
+    align-self: flex-start;
+    background-color: #e5e5ea;
+    color: black;
+}
+
+#query {
+    height: 45px;
+    margin-top: 0px;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    width: calc(100% - 20px); /* Adjust width, considering padding */
+    display: block;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+/* Additional styles for the Send button */
+#send {
+  background-color: #007aff;
+  width: 20%;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  display: block;
+  margin-top: 10px;
+  align-self: flex-end; /* Align the button to the right */
+  height: 45px; /* Match the input field height */
+  font-size: 16px;
+}
+
+#send:hover {
+  background-color: #005ecb;
+}
+
+#send:active {
+  background-color: #004cab;
+}
+
+/* Adjust the container for input and button */
+#inputContainer {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Scrollbar styles */
+#chatLog::-webkit-scrollbar {
+    width: 8px;
+}
+
+#chatLog::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+#chatLog::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+}
+
+#nextStep {
+  background-color: #007aff;
+  width: 100%;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  margin-top: 10px;
+  display: none;
+  align-self: flex-end; /* Align the button to the right */
+  height: 45px; /* Match the input field height */
+}
+
+#nextStep:hover {
+  background-color: #005ecb; /* Slightly darker blue on hover */
+}
+
+#nextStep:active {
+  background-color: #004cab; /* Even darker blue to simulate click */
+}
+
+#enableMicrophone {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  fill: #007aff;
+  cursor: pointer;
+  outline: none;
+  display: block;
+  margin-top: 10px;
+  align-self: flex-end; /* Align the button to the right */
+  height: 45px; /* Match the input field height */
+}
+
+.record-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+/* When recording */
+.is-recording #enableMicrophone {
+  fill: #ff3b30; /* Change color to indicate recording */
+}
+
+.is-recording .record-button {
+  animation: pulse-animation 2s infinite;
+}
+
+@keyframes pulse-animation {
+  0% {
+    box-shadow: 0 0 0 0px rgba(255, 59, 48, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 59, 48, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0px rgba(255, 59, 48, 0);
+  }
+}
