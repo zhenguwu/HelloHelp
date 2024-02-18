@@ -67,13 +67,19 @@ def add_image():
         
         # Call the Cloud Vision API
         if next_action['action'] == 'click':
+            print(response)
             print("Sending to Cloud Vision!")
             
             # Reset the file pointer to the beginning of the file
             photo.seek(0)
             binary_image = photo.read()
 
-            vision.detect_text_location(binary_image, next_action['text'])
+            bounds = vision.detect_text_location(binary_image, next_action['text'], gpt.get_message_size(user_id) - 1, user_id)
+            response['bounds'] = bounds
+        else:
+            # Save photo to user_data folder
+            photo.seek(0)
+            photo.save(os.path.join(UPLOAD_FOLDER, user_id + '_' + str(gpt.get_message_size(user_id)-1) + '.png'))
 
         return response, 200
         

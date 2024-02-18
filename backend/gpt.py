@@ -123,6 +123,9 @@ def add_message(user_id, message):
 
     print(response)
 
+def get_message_size(user_id):
+    messages = read_messages_from_file(user_id)
+    return len(messages)
 
 def gpt_chat_completion(messages, model="gpt-4-vision-preview", temperature=0.2, max_tokens=4096):
     data = {
