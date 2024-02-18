@@ -5,6 +5,7 @@ from io import BytesIO
 import base64
 import gpt
 import vision
+import box
 
 app = Flask(__name__)
 
@@ -75,11 +76,11 @@ def add_image():
             binary_image = photo.read()
 
             bounds = vision.detect_text_location(binary_image, next_action['text'], gpt.get_message_size(user_id) - 1, user_id)
-            response['bounds'] = bounds
+            box.draw_bounding_box(bounds[0][0], bounds[0][1], bounds[1][0], bounds[1][1])
         else:
             # Save photo to user_data folder
             photo.seek(0)
-            photo.save(os.path.join(UPLOAD_FOLDER, user_id + '_' + str(gpt.get_message_size(user_id)-1) + '.png'))
+            photo.save(os.path.join(UPLOAD_FOLDER + 'user_id' + '/',str(gpt.get_message_size(user_id)-1) + '.png'))
 
         return response, 200
         

@@ -2,6 +2,7 @@ import pyautogui
 import requests
 from io import BytesIO
 import time
+import json
 import sys
 
 # Define the API endpoint
@@ -10,12 +11,9 @@ url = 'http://localhost:5000/'
 # Define the user ID
 user_id = '12345'
 
-
-
 def start_help(task):
     # Begin the help session
     response = requests.post(url + 'begin', data={'user_id': user_id, 'task': task})
-    print(response.text)
 
 def add_image():
     # Take a screenshot
@@ -23,6 +21,8 @@ def add_image():
 
     screen_width, screen_height = screenshot.size
     crop_area = (0, 0, screen_width // 3 * 2, screen_height)
+
+    screenshot = screenshot.crop(crop_area)
 
     # Save the screenshot to a BytesIO object (in-memory file)
     img_bytes = BytesIO()
@@ -34,7 +34,8 @@ def add_image():
 
     # Send the first request
     response = requests.post(url + 'image', data={'user_id': user_id}, files=files)
-    print(response.text)
+    response = json.loads(response.text)
+    print(response["briefExplanation"])
 
 def add_images():
     while (True):
