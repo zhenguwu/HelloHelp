@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <title>HelloHelp</title>
+</head>
+<body>
+    <h2>Hello, how can I help?</h2>
+    <div id="chatLog" style="height: 200px; overflow-y: scroll; border: 1px solid #ccc; padding: 0px; margin-bottom: 10px;"></div>
+    <div id="inputContainer">
+      <button id="nextStep">Next Step</button>
+      <textarea id="query" placeholder="Type your message here..." style="flex-grow: 1;"></textarea>
+      <button id="enableMicrophone"><i class="fas fa-microphone"></i></button>
+      <button id="send">Send</button>
+      <!-- <button id="takeScreenshot">Take Screenshot</button> -->
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>
